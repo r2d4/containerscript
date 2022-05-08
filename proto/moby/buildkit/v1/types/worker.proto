@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package moby.buildkit.v1.types;
+
+import "pb/ops.proto";
+
+option go_package = "github.com/r2d4/containerscript/pkg/proto/moby/buildkit/v1/types";
+
+message WorkerRecord {
+  string ID = 1;
+  map<string, string> Labels = 2;
+  repeated pb.Platform platforms = 3;
+  repeated GCPolicy GCPolicy = 4;
+  BuildkitVersion BuildkitVersion = 5;
+}
+
+message GCPolicy {
+  bool all = 1;
+  int64 keepDuration = 2;
+  int64 keepBytes = 3;
+  repeated string filters = 4;
+}
+
+message BuildkitVersion {
+  string package = 1;
+  string version = 2;
+  string revision = 3;
+}
