@@ -1,14 +1,8 @@
-PROTO_GO_OUT_DIR=/pkg/proto
-PROTO_TS_OUT_DIR=/cs/lib
+PROTO_TS_OUT_DIR=/src/proto
 
-OUT_DIRS=${PROTO_GO_OUT_DIR} ${PROTO_TS_OUT_DIR}
+OUT_DIRS=${PROTO_TS_OUT_DIR}
 
 PROTO_FILES := $(shell find $(shell pwd -P) -type f -name '*.proto')
-
-GO_PROTO_OPT  = --go_out=${PROTO_GO_OUT_DIR}
-GO_PROTO_OPT += --go-grpc_out=${PROTO_GO_OUT_DIR}
-GO_PROTO_OPT += --go_opt=paths=source_relative
-GO_PROTO_OPT += --go-grpc_opt=paths=source_relative
 
 TS_PROTO_OPT  = --ts_proto_out=${PROTO_TS_OUT_DIR}
 TS_PROTO_OPT += --ts_proto_opt=context=true
@@ -22,4 +16,4 @@ PHONY:.proto-in-docker
 proto-in-docker:
 	rm -r ${OUT_DIRS} || true
 	mkdir -p ${OUT_DIRS}
-	protoc -I=/proto $(PROTO_FILES) ${GO_PROTO_OPT} ${TS_PROTO_OPT}
+	protoc -I=/proto $(PROTO_FILES) ${TS_PROTO_OPT}
